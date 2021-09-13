@@ -27,7 +27,7 @@ public class AlumnoService implements SAlumno{
 	@Override
 	public Alumno read(Long id) {
 		// TODO Auto-generated method stub
-		return alumnoRepository.getById(id);
+		return alumnoRepository.findById(id).get();
 	}
 
 	@Override
