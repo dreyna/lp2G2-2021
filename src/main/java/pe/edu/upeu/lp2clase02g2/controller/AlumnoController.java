@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,11 +58,26 @@ public class AlumnoController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			} 
 	}
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<HttpStatus> delete(@PathVariable("id") long id){
 		try {
 			alumnoService.delete(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	@PutMapping("/alumno/update/{id}")
+	public ResponseEntity<Alumno> update(@RequestBody Alumno alum, @PathVariable("id") long id){
+		try {
+			Alumno ul = alumnoService.read(id);
+			if(ul.getIdalumno()>0) {
+				ul.setNombre(alum.getNombre());
+				return new ResponseEntity<>(alumnoService.create(ul),HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}			
+
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

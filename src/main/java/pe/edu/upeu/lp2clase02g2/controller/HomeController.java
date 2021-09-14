@@ -10,4 +10,8 @@ public class HomeController {
 public String mensaje() {
 	return "Bienvenido a Spring Boot";
 }
+@GetMapping("/prueba")
+public String mensaje2() {
+	return "Test de Postman";
+}
 }
