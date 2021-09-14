@@ -23,7 +23,7 @@ public class ProductoController {
 	@PostMapping("/producto")
 	public ResponseEntity<Producto> save(@RequestBody Producto prod){
 		try {
-			Producto p = productoService.create(new Producto(prod.getNombre(), prod.getPrecio(), prod.getCantidad()));
+			Producto p = productoService.create(new Producto(prod.getIdproducto(), prod.getNombre(), prod.getPrecio(), prod.getCantidad()));
 			return new ResponseEntity<>(p, HttpStatus.CREATED);
 		} catch (Exception e) {
 			// TODO: handle exception
